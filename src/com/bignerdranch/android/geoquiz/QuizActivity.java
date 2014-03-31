@@ -28,6 +28,8 @@ public class QuizActivity extends Activity {
 			new TrueFalse(R.string.question_africa, false),
 			new TrueFalse(R.string.question_americas, true),
 			new TrueFalse(R.string.question_asia, true), };
+	private boolean[] mCheatenBank = { 
+			false, false, false, false, false };
 
 	private int mCurrentIndex = 0;
 
@@ -82,7 +84,7 @@ public class QuizActivity extends Activity {
 			@Override
 			public void onClick(View v) {
 				mCurrentIndex = (mCurrentIndex + 1) % mQuestionBank.length;
-				mIsCheater = false;
+				mIsCheater = mCheatenBank[mCurrentIndex];
 				updateQuestion();
 			}
 		});
@@ -116,6 +118,9 @@ public class QuizActivity extends Activity {
 		}
 		mIsCheater = data.getBooleanExtra(CheatActivity.EXTRA_ANSWER_SHOWN,
 				false);
+		if (mIsCheater) {
+			mCheatenBank[mCurrentIndex] = mIsCheater;
+		}
 	}
 
 	@Override
